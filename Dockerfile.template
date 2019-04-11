@@ -65,10 +65,10 @@ COPY Cargo.* ./
 COPY rust-toolchain ./
 
 # Build fake project with real dependencies
-RUN cargo build --release
+RUN cargo build
 
 # Remove the fake app build artifacts
-RUN rm -rf target/release/hello* target/release/deps/hello-*
+RUN rm -rf target/debug/hello* target/debug/deps/hello-*
 
 ################################################################################
 # Builder
@@ -88,7 +88,7 @@ COPY . .
 COPY --from=dependencies /build/app/target target
 
 # Build real app
-RUN cargo build --release
+RUN cargo build
 
 ################################################################################
 # Final image
@@ -99,7 +99,7 @@ FROM base
 WORKDIR /app
 
 # Copy binary from builder image
-COPY --from=builder /build/app/target/release/hello .
+COPY --from=builder /build/app/target/debug/hello .
 
 # TODO armv6
 #
