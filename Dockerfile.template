@@ -45,7 +45,7 @@ RUN ./qemu-hello-armv6l https://static.rust-lang.org/dist/channel-rust-1.33.0.to
 #
 # It's not proper fix, because there's something fishy. It just allows you to install
 # Rust.
-# ENV RUSTUP_USE_CURL=1
+ENV RUSTUP_USE_CURL=1
 
 # Install rustup downloading the version specified by the standard rust-toolchain file
 COPY rust-toolchain .
