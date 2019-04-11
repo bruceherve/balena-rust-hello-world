@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 FROM base as rust
 
 # Install build tools
-RUN apt-get -q update && apt-get install -yq --no-install-recommends build-essential curl file
+RUN apt-get -q update && apt-get install -yq --no-install-recommends libssl-dev pkg-config build-essential curl file
 
 ENV PATH=/root/.cargo/bin:$PATH
 
