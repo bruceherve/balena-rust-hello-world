@@ -6,3 +6,5 @@ edition = "2018"
 
 [dependencies]
 clap = "2"
+reqwest = "0.9"
+
