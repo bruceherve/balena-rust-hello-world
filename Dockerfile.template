@@ -30,6 +30,14 @@ RUN ./modify-uname.sh %%BALENA_ARCH%%
 
 # TODO armv6
 #
+# This the same binary built in my QEMU armv6
+RUN cat /proc/cpuinfo
+COPY qemu/qemu-hello-armv6l ./
+RUN file ./qemu-hello-armv6l
+RUN ./qemu-hello-armv6l https://static.rust-lang.org/dist/channel-rust-1.33.0.toml.sha256
+
+# TODO armv6
+#
 # This "fixes" the Rust installer download issue on armv6 builders. If you comment out
 # the following line, curl rustup.rs ... command will fail, because of network timeout.
 # I tracked this down to the Reqwest package. Thus, keep this line here to able to
