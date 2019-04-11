@@ -117,6 +117,7 @@ COPY --from=builder /build/app/target/debug/hello .
 # And ... it freezes the builder. I mean, it prints Still working... message,
 # but there's no timeout, nothing, it just prints them till you kill the build
 # process (git push).
+RUN apt-get -q update && apt-get install -yq --no-install-recommends curl file
 RUN file ./hello
 RUN ./hello https://static.rust-lang.org/dist/channel-rust-1.33.0.toml.sha256
 
