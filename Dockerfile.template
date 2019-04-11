@@ -28,6 +28,9 @@ WORKDIR /build
 COPY scripts/modify-uname.sh .
 RUN ./modify-uname.sh %%BALENA_ARCH%%
 
+# This "fixes" the Rust installer download issue on armv6 builders.
+ENV RUSTUP_USE_CURL=1
+
 # Install rustup downloading the version specified by the standard rust-toolchain file
 COPY rust-toolchain .
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain `cat rust-toolchain`
