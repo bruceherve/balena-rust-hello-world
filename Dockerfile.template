@@ -28,7 +28,15 @@ WORKDIR /build
 COPY scripts/modify-uname.sh .
 RUN ./modify-uname.sh %%BALENA_ARCH%%
 
-# This "fixes" the Rust installer download issue on armv6 builders.
+# TODO armv6
+#
+# This "fixes" the Rust installer download issue on armv6 builders. If you comment out
+# the following line, curl rustup.rs ... command will fail, because of network timeout.
+# I tracked this down to the Reqwest package. Thus, keep this line here to able to
+# install Rust.
+#
+# It's not proper fix, because there's something fishy. It just allows you to install
+# Rust.
 ENV RUSTUP_USE_CURL=1
 
 # Install rustup downloading the version specified by the standard rust-toolchain file
@@ -90,7 +98,14 @@ WORKDIR /app
 # Copy binary from builder image
 COPY --from=builder /build/app/target/release/hello .
 
-# Emulate rustup behavior, try to download same file
+# TODO armv6
+#
+# This simulates rustup installer. Hello world uses the first argument as an url
+# and tries to GET it via Reqwest (= what Rust installer does).
+#
+# And ... it freezes the builder. I mean, it prints Still working... message,
+# but there's no timeout, nothing, it just prints them till you kill the build
+# process (git push).
 RUN ./hello https://static.rust-lang.org/dist/channel-rust-1.33.0.toml.sha256
 
 # Copy other folders required by the application. Example:
