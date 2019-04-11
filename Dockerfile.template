@@ -43,6 +43,8 @@ ENV RUSTUP_USE_CURL=1
 COPY rust-toolchain .
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain `cat rust-toolchain`
 
+RUN rustup toolchain list
+
 ################################################################################
 # Dependencies
 ################################################################################
