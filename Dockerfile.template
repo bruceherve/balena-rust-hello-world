@@ -73,10 +73,10 @@ COPY Cargo.* ./
 COPY rust-toolchain ./
 
 # Build fake project with real dependencies
-RUN cargo build
+RUN cargo build --release
 
 # Remove the fake app build artifacts
-RUN rm -rf target/debug/hello* target/debug/deps/hello-*
+RUN rm -rf target/release/hello* target/release/deps/hello-*
 
 ################################################################################
 # Builder
@@ -96,7 +96,7 @@ COPY . .
 COPY --from=dependencies /build/app/target target
 
 # Build real app
-RUN cargo build
+RUN cargo build --release
 
 ################################################################################
 # Final image
@@ -107,7 +107,7 @@ FROM base
 WORKDIR /app
 
 # Copy binary from builder image
-COPY --from=builder /build/app/target/debug/hello .
+COPY --from=builder /build/app/target/release/hello .
 
 # TODO armv6
 #
@@ -119,7 +119,7 @@ COPY --from=builder /build/app/target/debug/hello .
 # process (git push).
 RUN apt-get -q update && apt-get install -yq --no-install-recommends curl file
 RUN file ./hello
-RUN ./hello https://static.rust-lang.org/dist/channel-rust-1.33.0.toml.sha256
+RUN ./hello https://static.rust-lang.org/dist/channel-rust-1.34.0.toml.sha256
 
 # Copy other folders required by the application. Example:
 # COPY --from=builder /build/app/assets assets
