@@ -25,8 +25,8 @@ ENV PATH=/root/.cargo/bin:$PATH
 #
 # https://github.com/rust-lang-nursery/rustup.rs/issues/1055
 WORKDIR /build
-COPY scripts/modify-uname.sh .
-RUN ./modify-uname.sh %%BALENA_ARCH%%
+#COPY scripts/modify-uname.sh .
+#RUN ./modify-uname.sh %%BALENA_ARCH%%
 
 # TODO armv6
 #
