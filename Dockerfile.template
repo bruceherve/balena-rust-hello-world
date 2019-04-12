@@ -18,15 +18,7 @@ RUN apt-get -q update && apt-get install -yq --no-install-recommends libssl-dev 
 
 ENV PATH=/root/.cargo/bin:$PATH
 
-# Modify `uname -m` for `arm7hf` and `rpi` BALENA_ARCH values:
-# https://forums.balena.io/t/rustup-fails-for-armv8l/2661
-# -> https://forums.balena.io/t/resin-build-variable-inconsistency/1571/2
-# -> https://github.com/balena-io/docs/issues/739
-#
-# https://github.com/rust-lang-nursery/rustup.rs/issues/1055
 WORKDIR /build
-#COPY scripts/modify-uname.sh .
-#RUN ./modify-uname.sh %%BALENA_ARCH%%
 
 # TODO armv6
 #
